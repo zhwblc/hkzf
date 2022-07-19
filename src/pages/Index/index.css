@@ -1,0 +1,21 @@
+.content {
+  height: 220px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  user-select: none;
+}
+
+.content .img {
+  width: 100%;
+}
+
+.grid-demo-item-block {
+  text-align: center;
+  height: 100%;
+}
+.grid-demo-item-block img {
+  
+}

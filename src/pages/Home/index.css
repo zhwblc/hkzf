@@ -1,19 +1,15 @@
+/* TabBar */
 .app {
   height: 97vh;
   display: flex;
   flex-direction: column;
 }
 
-.top {
-  flex: 0;
-  border-bottom: solid 1px var(--adm-color-border);
-}
-
 .body {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .bottom {

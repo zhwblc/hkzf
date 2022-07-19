@@ -4,6 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import './assets/fonts/iconfont.css'
+import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
