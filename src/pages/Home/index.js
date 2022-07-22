@@ -5,7 +5,7 @@ import {
   Route,
   Routes,
   useNavigate,
-  useLocation
+  useLocation,
 } from 'react-router-dom'
 import './index.css'
 
@@ -22,19 +22,18 @@ import Profile from '../Profile'
 
 
 export default class Home extends React.Component {
-
-
   render() {
     return (
       <div>
         <div className='app'>
           <div className='body'>
             {/* 路由 */}
+            {/* <Outlet /> */}
             <Routes>
-              <Route exact path='' element={<Index />}></Route>
-              <Route exact path='list' element={<HouseList />}></Route>
-              <Route exact path='news' element={<News />}></Route>
-              <Route exact path='profile' element={<Profile />}></Route>
+              <Route path='' element={<Index />}></Route>
+              <Route path='list' element={<HouseList />}></Route>
+              <Route path='news' element={<News />}></Route>
+              <Route path='profile' element={<Profile />}></Route>
             </Routes>
           </div>
           <div className='bottom'>

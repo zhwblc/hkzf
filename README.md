@@ -8,6 +8,8 @@ In the project directory, you can run:
 
 ### `npm start`
 
+cross-env HTTPS=true SSL_CRT_FILE=localhost+1.pem SSL_KEY_FILE=localhost+1-key.pem
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 

@@ -1,6 +1,5 @@
 html,
 body {
-  height: 100%;
   font-family: 'Microsoft YaHei';
   color: #333;
   background-color: #fff;
@@ -10,4 +9,11 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
 }

@@ -1,5 +1,9 @@
-.content {
-  height: 220px;
+.swiper {
+  position: relative;
+  height: 212px;
+}
+.swiper .content {
+  height: 212px;
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -7,10 +11,95 @@
   font-size: 48px;
   user-select: none;
 }
-.content .img {
+.swiper .content .img {
   width: 100%;
 }
-.grid-demo-item-block {
+.nav {
+  padding: 10px 0;
   text-align: center;
-  height: 100%;
+}
+.nav img {
+  width: 48px;
+}
+.nav h2 {
+  margin-top: 7px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.group {
+  background-color: #f6f5f6;
+  overflow: hidden;
+  padding: 0 10px;
+  padding-bottom: 10px;
+}
+.group .group-title {
+  position: relative;
+  margin: 15px 0px 15px 10px;
+  font-size: 15px;
+}
+.group .group-title .more {
+  color: #787d82;
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  font-weight: normal;
+}
+.group .group-item {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 10px;
+  height: 75px;
+  background-color: #fff;
+}
+.group .group-item .desc .title {
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.group .group-item .desc .info {
+  font-size: 12px;
+  color: #999;
+}
+.group .group-item img {
+  width: 55px;
+}
+.news {
+  padding: 15px;
+}
+.news .news-title {
+  font-size: 15px;
+}
+.news .news-list .news-content {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px 0;
+  border-top: 1px solid #eeeeee;
+  list-style-type: none;
+}
+.news .news-list .news-content .left {
+  display: block;
+  flex: 1;
+  margin-right: 10px;
+}
+.news .news-list .news-content .left img {
+  width: 100%;
+}
+.news .news-list .news-content .right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.news .news-list .news-content .right h4 {
+  font-size: 14px;
+}
+.news .news-list .news-content .right p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #9c9fa1;
+}
+.news .news-list .news-content:first-child {
+  border: none;
 }

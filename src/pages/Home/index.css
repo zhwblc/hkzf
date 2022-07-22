@@ -1,29 +1,20 @@
 /* TabBar */
 .app {
   height: 97vh;
-  display: flex;
-  flex-direction: column;
 }
-
-.body {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
+.app .body {
+  padding-bottom: 60px;
 }
-
-.bottom {
-  /* flex: 0; */
+.app .bottom {
   position: fixed;
   bottom: 0;
-  width: 96%;
+  width: 100%;
   border-top: solid 1px var(--adm-color-border);
+  background-color: #fff;
 }
-
-.adm-tab-bar-item-active  {
+.app .adm-tab-bar-item-active {
   color: var(--adm-color-success);
 }
-
-.bottom .iconfont {
+.app .bottom .iconfont {
   font-size: 20px;
 }

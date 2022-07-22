@@ -1,22 +1,131 @@
-.content {
-  height: 220px;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 48px;
-  user-select: none;
+// 轮播图
+.swiper {
+  position: relative;
+  height: 212px;
 
-  .img {
-    width: 100%;
+  .content {
+    height: 212px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    user-select: none;
+  
+    .img {
+      width: 100%;
+    }
   }
 }
 
-.grid-demo-item-block {
+// 导航
+.nav {
+  padding: 10px 0;
   text-align: center;
-  height: 100%;
 
   img {
-  
+    width: 48px;
+  }
+
+  h2 {
+    margin-top: 7px;
+    font-size: 13px;
+    font-weight: 400;
   }
 }
+
+// 租房小组样式：
+.group {
+  background-color: #f6f5f6;
+  overflow: hidden;
+  padding: 0 10px;
+  padding-bottom: 10px;
+
+  .group-title {
+    position: relative;
+    margin: 15px 0px 15px 10px;
+    font-size: 15px;
+    .more {
+      color: #787d82;
+      position: absolute;
+      right: 0;
+      font-size: 14px;
+      font-weight: normal;
+    }
+  }
+
+  .group-item {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-bottom: 10px;
+    height: 75px;
+    background-color: #fff;
+  
+    .desc {
+      .title {
+        font-weight: bold;
+        font-size: 13px;
+        margin-bottom: 5px;
+      }
+      .info {
+        font-size: 12px;
+        color: #999;
+      }
+    }
+    img {
+      width: 55px;
+    }
+  }
+}
+
+// 最新资讯
+.news {
+  padding: 15px;
+  .news-title {
+    font-size: 15px;
+  }
+  
+  .news-list {
+    .news-content {
+      display: flex;
+      justify-content: space-evenly;
+      padding: 15px 0;
+      border-top: 1px solid #eeeeee;
+      list-style-type: none;
+
+      .left {
+        display: block;
+        flex: 1;
+        margin-right: 10px;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .right {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        h4 {
+          font-size: 14px;
+        }
+
+        p {
+          display: flex;
+          justify-content: space-between;
+          font-size: 12px;
+          color: #9c9fa1;
+        }
+      }
+    }
+
+    .news-content:first-child {
+      border: none;
+    }
+  }
+}
+
