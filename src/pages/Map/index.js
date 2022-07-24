@@ -1,4 +1,6 @@
 import React from "react"
+import NavBarHeader from '../../components/NavBarHeader'
+// import withHook from '../../utils/withHook.js'
 import './index.css'
 
 export default class Map extends React.Component {
@@ -11,6 +13,9 @@ export default class Map extends React.Component {
   }
   render() {
     return <div className="map">
+      {/* 顶部导航 */}
+      <NavBarHeader className="navbar">城市选择</NavBarHeader>
+
       {/* 地图容器 */}
       <div id="container"></div>
     </div>

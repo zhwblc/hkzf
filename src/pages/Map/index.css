@@ -2,3 +2,9 @@
 #container {
   height: 100%;
 }
+.map {
+  padding-top: 45px;
+}
+.map .navbar {
+  margin-top: -45px;
+}

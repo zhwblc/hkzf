@@ -1,4 +1,26 @@
 import React from "react"
+import { Toast } from 'antd-mobile'
+import withHook from "../../utils/withHook"
+import axios from "axios"
+
+import { AutoSizer, List } from 'react-virtualized'
+import NavBarHeader from "../../components/NavBarHeader"
+
+import './index.css'
+
+// 导入 utils 中获取当前定位城市的方法
+import { gerCurrentCity } from '../../utils'
+
+// 索引的高度
+const TITLE_HEIGHT = 36
+// 每个城市名称的高度
+const NAME_HEIGHT = 50
+
+// 有房源的城市
+const HOUSE_CITY = ['北京', '上海', '广州', '深圳']
+
+// 所有的行高
+let ROW_HEIGHT = []
 
 // 数据格式化的方法
 // list: [{}, {}]
@@ -42,9 +64,17 @@ function formateCityIndex(letter) {
 }
 
 class CityList extends React.Component {
-  state = {
-    cityList: {},
-    cityIndex: []
+  constructor(props) {
+    super(props)
+    this.state = {
+      cityList: {},
+      cityIndex: [],
+      // 指定右侧字母索引列表高亮的索引号
+      activeIndex: 0
+    }
+
+    // 创建ref对象
+    this.cityListComponent = React.createRef()
   }
 
   // 获取城市列表
@@ -72,6 +102,20 @@ class CityList extends React.Component {
     })
   }
 
+  changeCity({ label, value }) {
+    // 判断有没有房源
+    if (HOUSE_CITY.indexOf(label) > -1) {
+      localStorage.setItem('hkzf_city', JSON.stringify({ label, value }))
+      this.props.to(-1)
+    } else {
+      // 提示用户没有房源信息
+      Toast.show({
+        content: '没有房源信息',
+        duration: 1000
+      })
+    }
+  }
+
   // 渲染每一行数据的函数
   rowRenderer = ({
     key, // Unique key within array of rows
@@ -87,24 +131,106 @@ class CityList extends React.Component {
       <div key={key} style={style} className="city">
         <div className="title">{formateCityIndex(letter)}</div>
         {
-          cityList[letter].map(item => <div className="name" key={item.value}>{item.label}</div>)
+          cityList[letter].map(item => <div className="name" key={item.value} onClick={() => { this.changeCity(item) }}>{item.label}</div>)
         }
       </div>
     );
   }
 
-  getRowHeight(index) {
-    console.log(index);
-    return 100
+  getRowHeight = ({ index }) => {
+    // 索引高度 + 城市名称高度 * 城市名称数量
+    const { cityList, cityIndex } = this.state
+    return TITLE_HEIGHT + NAME_HEIGHT * cityList[cityIndex[index]].length
   }
 
-  componentDidMount() {
-    this.getCityList()
+  // 渲染右侧索引的方法
+  renderCityIndex = () => {
+    // console.log(this.state);
+    const { cityIndex, activeIndex } = this.state
+    return cityIndex.map((item, index) => (
+      <li className="city-index-item" key={item} onClick={() => {
+        // this.cityListComponent.current.scrollToRow(index)
+        let offsetHeight = 0
+        for (let i = 0; i < index; i++) {
+          offsetHeight += ROW_HEIGHT[i]
+        }
+        // 避免定位不准的问题
+        offsetHeight += 2
+        this.cityListComponent.current.scrollToPosition(offsetHeight)
+      }}>
+        {/* className="index-active" */}
+        <span className={activeIndex === index ? 'index-active' : ''}>
+          {item === 'hot' ? '热' : item.toUpperCase()}
+        </span>
+      </li>
+    ))
+  }
+
+  // 获取list组件中，渲染行的信息
+  onRowsRendered = ({ startIndex }) => {
+    // console.log(startIndex);
+    const { activeIndex } = this.state
+
+    if (activeIndex !== startIndex) {
+      this.setState({
+        activeIndex: startIndex
+      })
+    }
+  }
+
+  // 获取所有行的高度
+  getRowHeightAll = () => {
+    const { cityIndex, cityList } = this.state
+    cityIndex.forEach((item, index) => {
+      // console.log(item, index);
+      ROW_HEIGHT[index] = TITLE_HEIGHT + NAME_HEIGHT * cityList[item].length
+    })
+  }
+
+  async componentDidMount() {
+    await this.getCityList()
+
+    // measureAllRows 提前计算list每一行的高度，实现 scrollToRow 的精确跳转
+    // 注意：调用这个方法，需要保证 list 组件中已经有数据了！如果没有数据，就报错
+    try {
+      // 会渲染两遍，第一遍list没有值
+      // this.cityListComponent.current.measureAllRows()
+      this.getRowHeightAll()
+    } catch (res) {
+      // console.log(res);
+    }
   }
 
   render() {
     return (
-      <div>这是城市选择页面</div>
+      <div className="citylist">
+        {/* 顶部导航 */}
+        {/* <NavBar onBack={() => this.props.to(-1)} className="navbar">城市选择</NavBar> */}
+        <NavBarHeader className="navbar">城市选择</NavBarHeader>
+
+        {/* 城市列表 */}
+        <AutoSizer>
+          {({ height, width }) => (
+            <List
+              ref={this.cityListComponent}
+              width={width}
+              height={height}
+              rowCount={this.state.cityIndex.length}
+              rowHeight={this.getRowHeight}
+              rowRenderer={this.rowRenderer}
+              onRowsRendered={this.onRowsRendered}
+              scrollToAlignment='start'
+            />
+          )}
+        </AutoSizer>
+
+        {/* 右侧索引列表 */}
+        <ul className="city-index">
+          {this.renderCityIndex()}
+        </ul>
+      </div>
     )
   }
 }
+
+export default withHook(CityList)

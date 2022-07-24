@@ -12,6 +12,9 @@ import Nav4 from '../../assets/images/nav-4.png'
 
 import SearchHeader from '../../components/SearchHeader'
 
+// 导入 utils 中获取当前定位城市的方法
+import { gerCurrentCity } from '../../utils'
+
 // 导航菜单数据
 const navs = [
   {
@@ -98,22 +101,17 @@ class Index extends React.Component {
     })
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getSwipers()
     this.getGroups()
     this.getNews()
 
-    // 通过 IP 定位获取当前城市名称
-    var myCity = new window.BMapGL.LocalCity();
-    myCity.get(async res => {
-      var cityName = res.name;
-      const { data: result } = await axios.get(`http://localhost:8080/area/info?name=${cityName}`)
-      this.setState(() => {
-        return {
-          curCityName: result.body.label
-        }
-      })
-    });
+    const curcity = await gerCurrentCity()
+    this.setState(() => {
+      return {
+        curCityName: curcity.label
+      }
+    })
   }
 
   // 渲染轮播图结构
