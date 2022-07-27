@@ -1,4 +1,8 @@
 .navbar {
   // margin-top: -45px;
   background-color: #f5f6f5;
+
+  :global(.adm-nav-bar-title) {
+    color: #333;
+  }
 }

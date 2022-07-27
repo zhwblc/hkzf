@@ -1,7 +1,8 @@
 import { NavBar } from 'antd-mobile'
 import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-import './index.css'
+import styles from './index.module.scss'
 
 const NavBarHeader = ({ children, onBack }) => {
   const navigate = useNavigate()
@@ -11,8 +12,14 @@ const NavBarHeader = ({ children, onBack }) => {
 
   return (
     // 顶部导航
-    <NavBar onBack={onBack || defaultHandler} className="navbar">{children}</NavBar>
+    <NavBar onBack={onBack || defaultHandler} className={styles.navbar}>{children}</NavBar>
   )
+}
+
+// props校验
+NavBarHeader.prototypes = {
+  children: PropTypes.string.isRequired,
+  onBack: PropTypes.func
 }
 
 export default NavBarHeader

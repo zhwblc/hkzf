@@ -6,7 +6,7 @@ import axios from "axios"
 import { AutoSizer, List } from 'react-virtualized'
 import NavBarHeader from "../../components/NavBarHeader"
 
-import './index.css'
+import './index.scss'
 
 // 导入 utils 中获取当前定位城市的方法
 import { gerCurrentCity } from '../../utils'
