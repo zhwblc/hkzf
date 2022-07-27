@@ -1,7 +1,8 @@
 import React from "react"
 import { Toast } from 'antd-mobile'
 import withHook from "../../utils/withHook"
-import axios from "axios"
+// import axios from "axios"
+import { API } from '../../utils/api.js'
 
 import { AutoSizer, List } from 'react-virtualized'
 import NavBarHeader from "../../components/NavBarHeader"
@@ -79,11 +80,11 @@ class CityList extends React.Component {
 
   // 获取城市列表
   async getCityList() {
-    const { data: res } = await axios.get('http://localhost:8080/area/city?level=1')
+    const { data: res } = await API.get('/area/city?level=1')
     const { cityList, cityIndex } = formcityData(res.body)
 
     // 热门城市
-    const { data: hotRes } = await axios.get('http://localhost:8080/area/hot')
+    const { data: hotRes } = await API.get('/area/hot')
     // console.log(hotRes);
     cityList['hot'] = hotRes.body
     cityIndex.unshift('hot')
@@ -93,13 +94,16 @@ class CityList extends React.Component {
     cityList['#'] = [curCity]
     cityIndex.unshift('#')
 
-    // console.log(cityList, cityIndex, curCity);
+    console.log(cityList, cityIndex, curCity);
     this.setState(() => {
       return {
         cityList,
         cityIndex
       }
+    }, () => {
+      this.getRowHeightAll()
     })
+    // return new Promise(resolve => resolve({ cityList, cityIndex }))
   }
 
   changeCity({ label, value }) {
@@ -157,6 +161,7 @@ class CityList extends React.Component {
         // 避免定位不准的问题
         offsetHeight += 2
         this.cityListComponent.current.scrollToPosition(offsetHeight)
+        console.log('offsetHeight', offsetHeight);
       }}>
         {/* className="index-active" */}
         <span className={activeIndex === index ? 'index-active' : ''}>
@@ -181,24 +186,23 @@ class CityList extends React.Component {
   // 获取所有行的高度
   getRowHeightAll = () => {
     const { cityIndex, cityList } = this.state
+    console.log(cityIndex);
     cityIndex.forEach((item, index) => {
       // console.log(item, index);
       ROW_HEIGHT[index] = TITLE_HEIGHT + NAME_HEIGHT * cityList[item].length
     })
   }
 
-  async componentDidMount() {
-    await this.getCityList()
+  componentDidMount() {
+    this.getCityList()
 
     // measureAllRows 提前计算list每一行的高度，实现 scrollToRow 的精确跳转
     // 注意：调用这个方法，需要保证 list 组件中已经有数据了！如果没有数据，就报错
-    try {
-      // 会渲染两遍，第一遍list没有值
-      // this.cityListComponent.current.measureAllRows()
-      this.getRowHeightAll()
-    } catch (res) {
-      // console.log(res);
-    }
+
+    // this.cityListComponent.current.measureAllRows()
+    // 放在setState回调函数中了
+    // this.getRowHeightAll(cityList, cityIndex)
+
   }
 
   render() {

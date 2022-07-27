@@ -1,4 +1,5 @@
-import axios from "axios"
+// import axios from "axios"
+import { API } from '../../utils/api.js'
 import React from "react"
 import { Toast } from 'antd-mobile'
 import { Link } from "react-router-dom"
@@ -123,7 +124,7 @@ class Map extends React.Component {
     try {
       // 开启loading
       const toast = Toast.show({ content: '加载中...' })
-      const { data: res } = await axios.get(`http://localhost:8080/area/map?id=${id}`)
+      const { data: res } = await API.get(`/area/map?id=${id}`)
 
       toast.close()
 
@@ -134,6 +135,7 @@ class Map extends React.Component {
         this.createOverlays(item, nextZoom, type)
       })
     } catch (err) {
+      console.log(err);
       Toast.clear()
     }
   }
@@ -257,7 +259,7 @@ class Map extends React.Component {
       // 开启loading
       const toast = Toast.show({ content: '加载中...' })
 
-      const { data: res } = await axios.get(`http://localhost:8080/houses?cityId=${id}`)
+      const { data: res } = await API.get(`/houses?cityId=${id}`)
       console.log(res);
       // 关闭 loading
       toast.close()
@@ -267,9 +269,10 @@ class Map extends React.Component {
         // 展示房源列表
         isShowList: true
       })
-    } catch (e) {
+    } catch (err) {
       // 关闭 loading
       // toast.close()
+      console.log(err);
       Toast.clear()
     }
   }

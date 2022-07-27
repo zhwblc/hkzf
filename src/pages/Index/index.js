@@ -1,9 +1,12 @@
 import React from "react"
 import withHook from "../../utils/withHook"
 // 导入 axios
-import axios from 'axios'
+// import axios from 'axios'
+import { API } from '../../utils/api.js'
 import { Swiper, Grid } from 'antd-mobile'
 import './index.css'
+
+import { BASE_URL } from '../../utils/url'
 
 import Nav1 from '../../assets/images/nav-1.png'
 import Nav2 from '../../assets/images/nav-2.png'
@@ -11,6 +14,7 @@ import Nav3 from '../../assets/images/nav-3.png'
 import Nav4 from '../../assets/images/nav-4.png'
 
 import SearchHeader from '../../components/SearchHeader'
+
 
 // 导入 utils 中获取当前定位城市的方法
 import { gerCurrentCity } from '../../utils'
@@ -62,7 +66,7 @@ class Index extends React.Component {
 
   // 获取轮播图数据的方法
   async getSwipers() {
-    const { data: res } = await axios.get('http://localhost:8080/home/swiper')
+    const { data: res } = await API.get('/home/swiper')
     // console.log('轮播图数据：', res);
     this.setState(() => {
       return {
@@ -74,7 +78,7 @@ class Index extends React.Component {
 
   // 获取租房小组数据
   async getGroups() {
-    const { data: res } = await axios.get('http://localhost:8080/home/groups', {
+    const { data: res } = await API.get('/home/groups', {
       params: {
         area: 'AREA%7C88cff55c-aaa4-e2e0'
       }
@@ -88,7 +92,7 @@ class Index extends React.Component {
 
   // 获取最新资讯数据
   async getNews() {
-    const { data: res } = await axios.get('http://localhost:8080/home/news', {
+    const { data: res } = await API.get('/home/news', {
       params: {
         area: 'AREA%7C88cff55c-aaa4-e2e0'
       }
@@ -121,7 +125,7 @@ class Index extends React.Component {
         <div className="content">
           <img
             className="img"
-            src={`http://localhost:8080${item.imgSrc}`}
+            src={BASE_URL + item.imgSrc}
             alt=""
           />
         </div>
@@ -148,7 +152,7 @@ class Index extends React.Component {
           <span className="info">{item.desc}</span>
         </div>
         <img
-          src={`http://localhost:8080${item.imgSrc}`}
+          src={BASE_URL + item.imgSrc}
           alt=""
         />
       </div>
@@ -161,7 +165,7 @@ class Index extends React.Component {
     return this.state.news.map(item => <li key={item.id} className="news-content">
       <div className="left">
         <img
-          src={`http://localhost:8080${item.imgSrc}`}
+          src={BASE_URL + item.imgSrc}
           alt=""
         />
       </div>
