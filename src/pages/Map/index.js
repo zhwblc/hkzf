@@ -106,18 +106,36 @@ class Map extends React.Component {
 
       }
     }, label)
+
+    // 给地图绑定移动事件
+    map.addEventListener('movestart', () => {
+      // console.log('movestart')
+      if (this.state.isShowList) {
+        this.setState({
+          isShowList: false
+        })
+      }
+    })
   }
 
   // 渲染覆盖物的入口
   async renderOverLays(id) {
-    const { data: res } = await axios.get(`http://localhost:8080/area/map?id=${id}`)
+    try {
+      // 开启loading
+      const toast = Toast.show({ content: '加载中...' })
+      const { data: res } = await axios.get(`http://localhost:8080/area/map?id=${id}`)
 
-    const { nextZoom, type } = this.getTypeAndZoom()
+      toast.close()
 
-    res.body.forEach(item => {
-      // 创建覆盖物
-      this.createOverlays(item, nextZoom, type)
-    })
+      const { nextZoom, type } = this.getTypeAndZoom()
+
+      res.body.forEach(item => {
+        // 创建覆盖物
+        this.createOverlays(item, nextZoom, type)
+      })
+    } catch (err) {
+      Toast.clear()
+    }
   }
 
   // 获取地图缩放级别
@@ -224,12 +242,11 @@ class Map extends React.Component {
     label.addEventListener('click', (e) => {
       this.getHouseList(id)
       // 获取当前被点击项
-      console.log(e);
-      // const target = e.changedTouches[0]
-      // this.map.panBy(
-      //   window.innerWidth / 2 - target.clientX,
-      //   (window.innerHeight - 330) / 2 - target.clientY
-      // )
+      const target = e.domEvent.changedTouches[0]
+      this.map.panBy(
+        window.innerWidth / 2 - target.clientX,
+        (window.innerHeight - 330) / 2 - target.clientY
+      )
     })
     this.map.addOverlay(label)
   }
@@ -241,6 +258,7 @@ class Map extends React.Component {
       const toast = Toast.show({ content: '加载中...' })
 
       const { data: res } = await axios.get(`http://localhost:8080/houses?cityId=${id}`)
+      console.log(res);
       // 关闭 loading
       toast.close()
 
@@ -252,11 +270,12 @@ class Map extends React.Component {
     } catch (e) {
       // 关闭 loading
       // toast.close()
+      Toast.clear()
     }
   }
 
+  // 渲染房屋列表的方法
   renderHousesList() {
-    console.log(BASE_URL);
     return this.state.housesList.map(item => (
       <HouseItem
         onClick={() => this.props.to(`/detail/${item.houseCode}`)}
