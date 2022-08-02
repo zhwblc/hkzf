@@ -94,7 +94,7 @@ class CityList extends React.Component {
     cityList['#'] = [curCity]
     cityIndex.unshift('#')
 
-    console.log(cityList, cityIndex, curCity);
+    // console.log(cityList, cityIndex, curCity);
     this.setState(() => {
       return {
         cityList,
@@ -161,7 +161,7 @@ class CityList extends React.Component {
         // 避免定位不准的问题
         offsetHeight += 2
         this.cityListComponent.current.scrollToPosition(offsetHeight)
-        console.log('offsetHeight', offsetHeight);
+        // console.log('offsetHeight', offsetHeight);
       }}>
         {/* className="index-active" */}
         <span className={activeIndex === index ? 'index-active' : ''}>
@@ -186,7 +186,7 @@ class CityList extends React.Component {
   // 获取所有行的高度
   getRowHeightAll = () => {
     const { cityIndex, cityList } = this.state
-    console.log(cityIndex);
+    // console.log(cityIndex);
     cityIndex.forEach((item, index) => {
       // console.log(item, index);
       ROW_HEIGHT[index] = TITLE_HEIGHT + NAME_HEIGHT * cityList[item].length

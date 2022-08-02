@@ -1,4 +1,4 @@
-import axios from "axios";
+import { API } from './api.js'
 
 export const gerCurrentCity = () => {
   // 判断 localStorage 中是否有定位城市
@@ -11,7 +11,7 @@ export const gerCurrentCity = () => {
       myCity.get(async res => {
         try {
           const cityName = res.name;
-          const { data: result } = await axios.get(`http://localhost:8080/area/info?name=${cityName}`)
+          const { data: result } = await API.get(`/area/info?name=${cityName}`)
           localStorage.setItem('hkzf_city', JSON.stringify(result.body))
           resolve(result.body)
         } catch (err) {
