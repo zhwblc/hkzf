@@ -25,7 +25,9 @@ const NavBarHeader = ({ children, onBack, className, rightContent }) => {
 // props校验
 NavBarHeader.prototypes = {
   children: PropTypes.string.isRequired,
-  onBack: PropTypes.func
+  onBack: PropTypes.func,
+  className: PropTypes.string,
+  rightContent: PropTypes.array
 }
 
 export default NavBarHeader

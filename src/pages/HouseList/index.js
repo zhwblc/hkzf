@@ -107,6 +107,7 @@ class HouseList extends React.Component {
     return (
       <HouseItem
         key={key}
+        onClick={() => this.props.to(`/detail/${houseCode}`)}
         style={style}
         src={BASE_URL + houseImg}
         title={title}

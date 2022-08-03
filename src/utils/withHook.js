@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 // 高阶组件包装
 function withHook(WrapCompontent) {
   // 设置别名
   WrapCompontent.displayName = `WithHook${getDisplayName(WrapCompontent)}`
   return function QiLincompont() {
     const navigate = useNavigate()
-    return <WrapCompontent to={navigate}></WrapCompontent>
+    const params = useParams()
+    return <WrapCompontent to={navigate} params={params}></WrapCompontent>
   }
 }
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
 import { Modal, Swiper } from 'antd-mobile'
+import { useParams } from 'react-router-dom'
+import withHook from '../../utils/withHook'
 
 import NavHeader from '../../components/NavBarHeader'
 import HouseItem from '../../components/HouseItem'
@@ -9,6 +11,7 @@ import HousePackage from '../../components/HousePackage'
 // import { BASE_URL } from '../../utils/url'
 // import { API } from '../../utils/api'
 import { BASE_URL, API } from '../../utils'
+
 
 import styles from './index.module.css'
 
@@ -41,7 +44,7 @@ const recommendHouses = [
 ]
 
 // 百度地图
-const BMap = window.BMap
+const BMap = window.BMapGL
 
 const labelStyle = {
   position: 'absolute',
@@ -60,7 +63,7 @@ const labelStyle = {
 
 const alert = Modal.alert
 
-export default class HouseDetail extends Component {
+class HouseDetail extends Component {
   state = {
     // 数据加载中状态
     isLoading: false,
@@ -105,7 +108,8 @@ export default class HouseDetail extends Component {
   componentDidMount() {
     // 获取配置好的路由参数：
     // console.log('路由参数对象：', this.props.match.params)
-    // console.log(this.props)
+    // console.log(this.props);
+
 
     // 获取房屋数据
     this.getHouseDetail()
@@ -147,8 +151,8 @@ export default class HouseDetail extends Component {
 
   // 获取房屋详细信息
   async getHouseDetail() {
-    console.log(this.props);
-    const { id } = this.props.match.params
+    // console.log(this.props);
+    const { id } = this.props.params
 
     // 开启loading
     this.setState({
@@ -172,7 +176,17 @@ export default class HouseDetail extends Component {
 
   // 渲染轮播图结构
   renderSwipers() {
+    const {
+      houseInfo: { houseImg }
+    } = this.state
 
+    return houseImg.map((item, index) => (
+      <Swiper.Item key={index}>
+        <a href={`${BASE_URL + item}`} target='_blank' rel="noreferrer">
+          <img src={BASE_URL + item} alt="" />
+        </a>
+      </Swiper.Item>
+    ))
   }
 
   // 渲染地图
@@ -247,9 +261,10 @@ export default class HouseDetail extends Component {
 
         {/* 轮播图 */}
         <div className={styles.slides}>
-          <Swiper autoplay infinite autoplayInterval={5000}>
+          {!isLoading ? <Swiper autoplay loop autoplayInterval={5000}>
             {this.renderSwipers()}
           </Swiper >
+            : ''}
         </div>
 
         {/* 房屋基础信息 */}
@@ -277,23 +292,23 @@ export default class HouseDetail extends Component {
             </div>
           </div>
 
-          <div className={styles.infoBasic} align="start">
-            <div>
-              <div>
+          <div className={styles.infoBasic}>
+            <div className={styles.infoBasicItem}>
+              <div style={{ flex: 1 }}>
                 <span className={styles.title}>装修：</span>
                 精装
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <span className={styles.title}>楼层：</span>
                 {floor}
               </div>
             </div>
-            <div>
-              <div>
+            <div className={styles.infoBasicItem}>
+              <div style={{ flex: 1 }}>
                 <span className={styles.title}>朝向：</span>
                 {oriented.join('、')}
               </div>
-              <div>
+              <div style={{ flex: 1 }}>
                 <span className={styles.title}>类型：</span>普通住宅
               </div>
             </div>
@@ -383,3 +398,5 @@ export default class HouseDetail extends Component {
     )
   }
 }
+
+export default withHook(HouseDetail)

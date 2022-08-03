@@ -4,6 +4,16 @@
   background-color: #f6f5f6;
 }
 
+.content {
+  height: 250px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  user-select: none;
+}
+
 .root :global(.am-navbar-title) {
   color: #fff;
   font-size: 16px;
@@ -79,6 +89,8 @@
 }
 
 .infoPrice {
+  display: flex;
+  justify-content: space-around;
   border-top: solid 1px #cecece;
   border-bottom: solid 1px #cecece;
   margin: 15px 0;
@@ -107,7 +119,14 @@
 }
 
 .infoBasic {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
   font-size: 13px;
+}
+
+.infoBasicItem {
+  display: flex;
 }
 
 .title {
