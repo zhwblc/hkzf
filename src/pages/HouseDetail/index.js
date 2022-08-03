@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import { Modal, Swiper } from 'antd-mobile'
-import { useParams } from 'react-router-dom'
 import withHook from '../../utils/withHook'
 
 import NavHeader from '../../components/NavBarHeader'

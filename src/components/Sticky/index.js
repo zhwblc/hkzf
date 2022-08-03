@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react'
 
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 import styles from './index.module.css'
 

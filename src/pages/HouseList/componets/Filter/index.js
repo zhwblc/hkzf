@@ -1,4 +1,4 @@
-import React from "react"
+import React, { createRef } from "react"
 import { Spring, animated } from 'react-spring'
 import { API } from '../../../../utils/api'
 import { gerCurrentCity } from '../../../../utils'
@@ -42,6 +42,9 @@ const selectedValues = {
 
 export default class Filter extends React.Component {
   htmlBody = null
+  maskRef = createRef()
+  // 遮罩层是否隐藏
+  isHideMask = true
   state = {
     // 控制标题的高亮
     titleSelectedStatus,
@@ -51,6 +54,7 @@ export default class Filter extends React.Component {
     filtersData: {},
     // 筛选条件的选中值
     selectedValues
+
   }
 
   componentDidMount() {
@@ -262,16 +266,30 @@ export default class Filter extends React.Component {
   renderMask() {
     const { openType } = this.state
     const toggel = [...openType3].includes(openType)
+    const maskEl = this.maskRef.current
     return <Spring
       // from={{ opacity: 0 }}
       // to={{ opacity: 1 }}
-      to={{ opacity: toggel ? 1 : 0, display: toggel ? 'block' : 'none' }}
+      to={{ opacity: toggel ? 1 : 0 }}
+      onChange={(result) => {
+        // 用于动态隐藏 mask 避免遮挡点击其他组件
+        const { opacity } = result.value
+        if (opacity === 0) {
+          maskEl.classList.add(styles.hideMask)
+          this.isHideMask = true
+          // console.log(maskEl.classList);
+        } else if (this.isHideMask) {
+          maskEl.classList.remove(styles.hideMask)
+          this.isHideMask = false
+        }
+      }}
     >
       {
         props => (
           <animated.div
+            ref={this.maskRef}
             style={props}
-            className={styles.mask}
+            className={[styles.mask, styles.hideMask].join(' ')}
             onClick={() => this.onCancel(openType)}
           ></animated.div>
         )

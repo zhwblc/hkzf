@@ -7,6 +7,7 @@ import Map from "./pages/Map"
 import CityList from "./pages/CityList"
 
 import HouseDetail from './pages/HouseDetail'
+import Login from './pages//Login/'
 
 // import News from './pages/News'
 // import Index from './pages/Index'
@@ -24,6 +25,7 @@ function App() {
           <Route path="/citylist" element={<CityList />}></Route>
           <Route path="/map" element={<Map />}></Route>
           <Route path="/detail/:id" element={<HouseDetail />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
