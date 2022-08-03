@@ -28,4 +28,5 @@ export const gerCurrentCity = () => {
 
 export { API } from './api'
 export { BASE_URL } from './url'
+export * from './auth'
 // export { withHook } from './withHook'
