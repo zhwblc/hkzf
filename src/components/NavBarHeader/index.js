@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import styles from './index.module.scss'
 
-const NavBarHeader = ({ children, onBack }) => {
+const NavBarHeader = ({ children, onBack, className, rightContent }) => {
   const navigate = useNavigate()
 
   // 默认点击行为
@@ -12,7 +12,13 @@ const NavBarHeader = ({ children, onBack }) => {
 
   return (
     // 顶部导航
-    <NavBar onBack={onBack || defaultHandler} className={styles.navbar}>{children}</NavBar>
+    <NavBar
+      onBack={onBack || defaultHandler}
+      className={[styles.navbar, className || ''].join(' ')}
+      right={rightContent}
+    >
+      {children}
+    </NavBar>
   )
 }
 

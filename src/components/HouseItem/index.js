@@ -17,7 +17,7 @@ function HouseItem({ src, title, desc, tags, price, onClick, style }) {
           {/* ['近地铁', '随时看房'] */}
           {tags.map((tag, index) => {
             const tagClass = 'tag' + (index + 1)
-            return (
+            if (index < 3) return (
               <span
                 className={[styles.tag, styles[tagClass]].join(' ')}
                 key={tag}
@@ -25,6 +25,7 @@ function HouseItem({ src, title, desc, tags, price, onClick, style }) {
                 {tag}
               </span>
             )
+            else return ''
           })}
         </div>
         <div className={styles.price}>

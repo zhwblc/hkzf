@@ -1,4 +1,5 @@
 import React from "react"
+import { Spring, animated } from 'react-spring'
 import { API } from '../../../../utils/api'
 import { gerCurrentCity } from '../../../../utils'
 
@@ -40,6 +41,7 @@ const selectedValues = {
 }
 
 export default class Filter extends React.Component {
+  htmlBody = null
   state = {
     // 控制标题的高亮
     titleSelectedStatus,
@@ -52,6 +54,9 @@ export default class Filter extends React.Component {
   }
 
   componentDidMount() {
+    // 获取 body
+    this.htmlBody = document.body
+
     this.getFiltersData()
   }
 
@@ -69,6 +74,10 @@ export default class Filter extends React.Component {
   // 点击标题菜单实现高亮
   // 待完成
   onTitleClick = (type) => {
+
+    // 给 body 添加样式
+    this.htmlBody.className = 'body-fixed'
+
     const { titleSelectedStatus, selectedValues } = this.state
     // 创建新的标题选中状态对象
     const newTitleSelectedStatus = { ...titleSelectedStatus }
@@ -103,6 +112,9 @@ export default class Filter extends React.Component {
 
   // 取消（隐藏对话框）
   onCancel = (type) => {
+    // 给 body 添加样式
+    this.htmlBody.className = ''
+
     const { titleSelectedStatus, selectedValues } = this.state
     // 创建新的标题选中状态对象
     const newTitleSelectedStatus = { ...titleSelectedStatus }
@@ -128,6 +140,9 @@ export default class Filter extends React.Component {
 
   // 确定（隐藏对话框）
   onSave = (value, type) => {
+
+    // 给 body 添加样式
+    this.htmlBody.className = ''
 
     const { titleSelectedStatus, selectedValues } = this.state
     // 创建新的标题选中状态对象
@@ -243,15 +258,34 @@ export default class Filter extends React.Component {
     )
   }
 
+  // 渲染遮罩层div
+  renderMask() {
+    const { openType } = this.state
+    const toggel = [...openType3].includes(openType)
+    return <Spring
+      // from={{ opacity: 0 }}
+      // to={{ opacity: 1 }}
+      to={{ opacity: toggel ? 1 : 0, display: toggel ? 'block' : 'none' }}
+    >
+      {
+        props => (
+          <animated.div
+            style={props}
+            className={styles.mask}
+            onClick={() => this.onCancel(openType)}
+          ></animated.div>
+        )
+      }
+    </Spring>
+  }
+
   render() {
-    const { titleSelectedStatus, openType } = this.state
+    const { titleSelectedStatus } = this.state
     return (
       <div className={styles.root}>
         {/* 前三个菜单的遮罩层 */}
         {
-          [...openType3].includes(openType)
-            ? <div className={styles.mask} onClick={() => this.onCancel(openType)}></div>
-            : ''
+          this.renderMask()
         }
 
         <div className={styles.content}>

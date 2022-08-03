@@ -25,3 +25,6 @@ export const gerCurrentCity = () => {
     return Promise.resolve(localCity)
   }
 }
+
+export { API } from './api'
+export { BASE_URL } from './url'
