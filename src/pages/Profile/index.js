@@ -22,8 +22,9 @@ const menus = [
   { id: 6, name: '联系我们', iconfont: 'icon-cust' }
 ]
 
-// 默认头像
+// 默认头像 avatar_zhw.jpg
 const DEFAULT_AVATAR = BASE_URL + '/img/profile/avatar.png'
+// const DEFAULT_AVATAR = BASE_URL + '/img/profile/avatar_zhw.jpg'
 
 /* 
   1 给退出按钮绑定单击事件，创建方法 logout 作为事件处理程序。
