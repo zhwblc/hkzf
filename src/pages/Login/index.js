@@ -102,9 +102,11 @@ Login = withFormik({
   }),
 
   // 表单的提交事件
+  // 需要通过参数获取 props
   handleSubmit: async (values, { props }) => {
     // 获取账号和密码
     const { username, password } = values
+    console.log(props);
 
     // console.log('表单提交了', username, password)
     // 发送请求
