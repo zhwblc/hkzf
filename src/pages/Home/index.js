@@ -2,8 +2,7 @@ import React from 'react'
 import { TabBar } from 'antd-mobile'
 
 import {
-  Route,
-  Routes,
+  Outlet,
   useNavigate,
   useLocation,
 } from 'react-router-dom'
@@ -14,10 +13,10 @@ import './index.css'
 // const HouseList = lazy(() => import('../HouseList'))
 // const Profile = lazy(() => import('../Profile'))
 
-import News from '../News'
-import Index from '../Index'
-import HouseList from '../HouseList'
-import Profile from '../Profile'
+// import News from '../News'
+// import Index from '../Index'
+// import HouseList from '../HouseList'
+// import Profile from '../Profile'
 
 
 
@@ -28,13 +27,13 @@ export default class Home extends React.Component {
         <div className='app'>
           <div className='body'>
             {/* 路由 */}
-            {/* <Outlet /> */}
-            <Routes>
+            <Outlet />
+            {/* <Routes>
               <Route path='' element={<Index />}></Route>
               <Route path='list' element={<HouseList />}></Route>
               <Route path='news' element={<News />}></Route>
               <Route path='profile' element={<Profile />}></Route>
-            </Routes>
+            </Routes> */}
           </div>
           <div className='bottom'>
             <Bottom />

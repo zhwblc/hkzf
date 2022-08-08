@@ -106,7 +106,7 @@ Login = withFormik({
   handleSubmit: async (values, { props }) => {
     // 获取账号和密码
     const { username, password } = values
-    console.log(props);
+    // console.log(props);
 
     // console.log('表单提交了', username, password)
     // 发送请求
@@ -120,21 +120,21 @@ Login = withFormik({
     if (status === 200) {
       // 登录成功
       localStorage.setItem('hkzf_token', body.token)
-      props.to(-1)
-
       /* 
         1 登录成功后，判断是否需要跳转到用户想要访问的页面（判断 props.location.state 是否有值）。
         2 如果不需要（没有值），则直接调用 history.go(-1) 返回上一页。
         3 如果需要，就跳转到 from.pathname 指定的页面（推荐使用 replace 方法模式，而不是 push）。
       */
-      // if (!props.location.state) {
-      //   // 此时，表示是直接进入到了该页面，直接调用 go(-1) 即可
-      //   props.history.go(-1)
-      // } else {
-      //   // push：[home, login, map]
-      //   // replace: [home, map]
-      //   props.history.replace(props.location.state.from.pathname)
-      // }
+      if (!props.location.state) {
+        // 此时，表示是直接进入到了该页面，直接调用 go(-1) 即可
+        props.to(-1)
+      } else {
+        // push：[home, login, map]
+        // replace: [home, map]
+        let from = props.location.state?.from?.pathname || "/"
+        // props.history.replace(props.location.state.from.pathname)
+        props.to(from, { replace: true })
+      }
       // 注意：无法在该方法中，通过 this 来获取到路由信息
       // 所以，需要通过 第二个对象参数中获取到 props 来使用 props
       // props.history.go(-1)

@@ -81,28 +81,6 @@ class Profile extends Component {
             }
           }]
         ]
-        // '提示', '是否确定退出?', [
-        //   { text: '取消' },
-        //   {
-        //     text: '退出',
-        //     onPress: async () => {
-        //       // 调用退出接口
-        //       await API.post('/user/logout')
-
-        //       // 移除本地token
-        //       removeToken()
-
-        //       // 处理状态
-        //       this.setState({
-        //         isLogin: false,
-        //         userInfo: {
-        //           avatar: '',
-        //           nickname: ''
-        //         }
-        //       })
-        //     }
-        //   }
-        // ]
       }
     )
   }
@@ -116,7 +94,7 @@ class Profile extends Component {
     // 发送请求，获取个人资料
     const res = await API.get('/user')
 
-    console.log(res)
+    // console.log(res)
     if (res.data.status === 200) {
       const { avatar, nickname } = res.data.body
       this.setState({

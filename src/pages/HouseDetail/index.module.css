@@ -121,7 +121,7 @@
 .infoBasic {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   font-size: 13px;
 }
 
