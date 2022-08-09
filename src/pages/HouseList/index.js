@@ -57,7 +57,7 @@ class HouseList extends React.Component {
         end: 20
       }
     })
-    console.log(res);
+    // console.log(res);
     const { list, count } = res.body
     this.setState({
       list,
@@ -76,7 +76,7 @@ class HouseList extends React.Component {
     window.scrollTo(0, 0)
     this.filters = filters
 
-    console.log('filters', this.filters);
+    // console.log('filters', this.filters);
 
     // 获取房屋数据的方法
     this.searcheHouseList()
