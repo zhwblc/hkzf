@@ -21,6 +21,9 @@ body,
 li {
   list-style-type: none;
 }
+a {
+  text-decoration: none;
+}
 
 /* 解决 找房页面 展示遮罩层后，页面还会滚动的问题 */
 .body-fixed {

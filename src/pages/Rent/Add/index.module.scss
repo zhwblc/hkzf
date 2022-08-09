@@ -1,0 +1,126 @@
+.root {
+  padding-bottom: 70px;
+  background-color: #f5f5f9;
+}
+
+.bottom {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  height: 45px;
+  z-index: 1;
+  color: #fff;
+  font-size: 15px;
+  background-color: #fff;
+
+  div {
+    flex: 1;
+  }
+}
+
+.cancel {
+  color: #21b97a;
+  background-color: #fff;
+  height: 100%;
+  line-height: 45px;
+}
+
+.imgpicker {
+  overflow: hidden;
+}
+
+.input {
+  width: 20%;
+  color: #000;
+  font-size: 17px;
+  appearance: none;
+  padding: 2px 0;
+  border: 0;
+  background-color: transparent;
+  line-height: 1;
+}
+
+.input::placeholder {
+  color: #bbb;
+}
+
+.label {
+  color: #666;
+  font-size: 17px;
+  margin-right: 5px;
+  text-align: left;
+  overflow: hidden;
+  padding: 2px 0;
+  width: 85px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.root {
+  :global(.adm-list-header) {
+    color: #333;
+    background-color: #fff;
+    font-size: 15px;
+  }
+  :global(input[placeholder]) {
+    font-size: 14px;
+  }
+  :global(textarea[placeholder]) {
+    font-size: 14px;
+  }
+}
+
+.confirm {
+  height: 45px;
+  line-height: 45px;
+  background-color: #21b97a;
+}
+
+.header {
+  :global(.adm-list-header) {
+    color: #21b97a;
+  }
+
+  :global(.adm-list-item-content-main),
+  :global(.adm-form-item-label),
+  :global(.adm-input-element),
+  :global(.adm-list-item-content-extra),
+  :global(.adm-list-item-content-arrow)  {
+    font-size: 14px;
+    color: #333;
+  }
+}
+
+
+.title {
+  input {
+    padding-left: 10px;
+    line-height: 50px;
+  }
+}
+
+
+.supporting {
+  :global(.adm-list-body) {
+    padding-bottom: 20px;
+    background-color: #f6f5f6;
+  }
+}
+
+.desc {
+  background-color: #fff;
+
+  :global(.adm-list-body) {
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+}
+
+.pics {
+  :global(.adm-list-body) {
+    padding: 10px;
+  }
+}

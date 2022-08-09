@@ -247,6 +247,9 @@
 }
 
 .fixedBottom {
+  display: flex;
+  z-index: 999;
+  /* justify-content: space-evenly; */
   position: fixed;
   bottom: 0;
   left: 0;
@@ -258,6 +261,10 @@
   font-size: 17px;
   color: #999;
   background-color: #fff;
+}
+
+.fixedBottom div {
+  flex: 1;
 }
 
 .favorite {

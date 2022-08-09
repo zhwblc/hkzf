@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Modal, Swiper } from 'antd-mobile'
+import { Swiper, Dialog, Toast } from 'antd-mobile'
 import withHook from '../../utils/withHook'
 
 import NavHeader from '../../components/NavBarHeader'
@@ -9,7 +9,7 @@ import HousePackage from '../../components/HousePackage'
 
 // import { BASE_URL } from '../../utils/url'
 // import { API } from '../../utils/api'
-import { BASE_URL, API } from '../../utils'
+import { BASE_URL, API, isAuth } from '../../utils'
 
 
 import styles from './index.module.css'
@@ -60,7 +60,7 @@ const labelStyle = {
   userSelect: 'none'
 }
 
-const alert = Modal.alert
+// const alert = Modal.alert
 
 class HouseDetail extends Component {
   state = {
@@ -115,11 +115,28 @@ class HouseDetail extends Component {
 
     // 检查房源是否收藏
     this.checkFavorite()
+
+    window.scrollTo(0, 0)
   }
 
   // 检查房源是否收藏：
   async checkFavorite() {
+    const isLogin = isAuth()
 
+    if (!isLogin) {
+      // 没有登陆
+      return
+    } else {
+      // 已登录
+      const { id } = this.props.params
+      const { data: { status, body } } = await API.get(`/user/favorites/${id}`)
+      if (status === 200) {
+        // 表示请求已经成功，需要更新 isFavorite 的值
+        this.setState({
+          isFavorite: body.isFavorite
+        })
+      }
+    }
   }
 
   /* 
@@ -145,7 +162,58 @@ class HouseDetail extends Component {
   */
 
   handleFavorite = async () => {
+    const isLogin = isAuth()
 
+    if (!isLogin) {
+      // 未登录
+      return Dialog.show(
+        {
+          content: '是否确定退出?',
+          closeOnAction: true,
+          actions: [
+            [{ key: 'consol', text: '取消' },
+            {
+              key: 'out',
+              text: '去登录',
+              onClick: async () => {
+                this.props.to('/login', { state: { from: this.props.location } })
+              }
+            }]
+          ]
+        }
+      )
+    }
+
+    // 已登录
+    const { isFavorite } = this.state
+    const { id } = this.props.params
+    if (isFavorite) {
+      // 已收藏，应该删除收藏
+      const { data: { status } } = await API.delete(`/user/favorites/${id}`)
+      this.setState({
+        isFavorite: false
+      })
+      if (status === 200) {
+        // 提示用户取消收藏
+        Toast.show({ content: '已取消收藏' })
+      } else {
+        // Token 超时
+        Toast.show({ content: '登录超时，请重新登录!' })
+      }
+    } else {
+      // 未收藏，应该添加收藏
+      const { data: { status } } = await API.post(`/user/favorites/${id}`)
+      if (status === 200) {
+        // 添加收藏成功
+        Toast.show({ content: '已收藏' })
+        this.setState({
+          isFavorite: true
+        })
+      } else {
+        // Token 超时
+        Toast.show({ content: '登录超时，请重新登录!' })
+      }
+    }
   }
 
   // 获取房屋详细信息
@@ -374,7 +442,7 @@ class HouseDetail extends Component {
 
         {/* 底部收藏按钮 */}
         <div className={styles.fixedBottom}>
-          <div >
+          <div onClick={this.handleFavorite}>
             <img
               src={
                 BASE_URL + (isFavorite ? '/img/star.png' : '/img/unstar.png')

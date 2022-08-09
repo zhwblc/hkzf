@@ -77,7 +77,7 @@ class Login extends Component {
           </Form>
           <div className={styles.backHome}>
             <div>
-              <Link to="/registe">还没有账号，去注册~</Link>
+              <div onClick={() => { this.props.to('/registe', { replace: true }) }}>还没有账号，去注册~</div>
             </div>
           </div>
         </div>
@@ -132,7 +132,6 @@ Login = withFormik({
         // push：[home, login, map]
         // replace: [home, map]
         let from = props.location.state?.from?.pathname || "/"
-        // props.history.replace(props.location.state.from.pathname)
         props.to(from, { replace: true })
       }
       // 注意：无法在该方法中，通过 this 来获取到路由信息

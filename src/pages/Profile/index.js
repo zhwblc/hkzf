@@ -10,7 +10,7 @@ import styles from './index.module.css'
 
 // 菜单数据
 const menus = [
-  { id: 1, name: '我的收藏', iconfont: 'icon-coll', to: '/favorate' },
+  { id: 1, name: '我的收藏', iconfont: 'icon-coll', to: '/myfavorite' },
   { id: 2, name: '我的出租', iconfont: 'icon-ind', to: '/rent' },
   { id: 3, name: '看房记录', iconfont: 'icon-record' },
   {
@@ -114,12 +114,12 @@ class Profile extends Component {
   renderGrid = () => {
     return menus.map((item, index) => <Grid.Item key={index}>
       {item.to ?
-        // {/* <NavLink to={item.to}> */}
-        <div className={styles.menuItem}>
-          <i className={`iconfont ${item.iconfont}`} />
-          <span>{item.name}</span>
-        </div>
-        // {/* </NavLink> */}
+        <NavLink to={item.to}>
+          <div className={styles.menuItem}>
+            <i className={`iconfont ${item.iconfont}`} />
+            <span>{item.name}</span>
+          </div>
+        </NavLink>
         : <div className={styles.menuItem}>
           <i className={`iconfont ${item.iconfont}`} />
           <span>{item.name}</span>

@@ -1,0 +1,14 @@
+.houses {
+  padding: 45px 10px;
+  background-color: #fff;
+}
+
+.root {
+  :global(.adm-nav-bar) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    width: 100%;
+  }
+}
