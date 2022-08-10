@@ -29,3 +29,12 @@ a {
 .body-fixed {
   overflow: hidden;
 }
+
+.route-loading {
+  padding-top: 45%;
+  padding-left: 45%;
+}
+
+.route-loading .loading {
+  --size: 100px
+}
